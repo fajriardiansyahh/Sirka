@@ -2419,4 +2419,5 @@ Awesome project lists using [Gin](https://github.com/gin-gonic/gin) web framewor
 
     go get -u github.com/lib/pq
 
+    go mod tidy
 </details>
