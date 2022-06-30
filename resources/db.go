@@ -13,6 +13,7 @@ type DB_PARAM struct {
 	PASSWORD   string
 	DB_NAME    string
 	CONNECTION string
+	SSL        string
 }
 
 type QueryResponse struct {

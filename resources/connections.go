@@ -60,6 +60,7 @@ func setConnection() (DB_PARAM, string) {
 		PASSWORD:   Load_Env("DATABASE_PASSWORD"),
 		DB_NAME:    Load_Env("DATABASE_NAME"),
 		CONNECTION: Load_Env("DATABASE_CONNECTION"),
+		SSL:        Load_Env("DATABASE_SSLMODE"),
 	}
 	connectionString := ""
 
@@ -85,9 +86,10 @@ func setConnection() (DB_PARAM, string) {
 		connectionString = fmt.Sprintf(
 			"host='" + db.HOST +
 				"' port=" + db.PORT +
-				"user='" + db.USER +
-				"' password='" + db.PASSWORD +
-				"' dbname='" + db.DB_NAME + "'")
+				" user=" + db.USER +
+				" password='" + db.PASSWORD +
+				"' dbname='" + db.DB_NAME +
+				"' sslmode=" + db.SSL)
 	}
 
 	return db, connectionString

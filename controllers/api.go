@@ -9,8 +9,8 @@ import (
 )
 
 type Display_User struct {
-	Userid string `json:"Userid"`
-	Name   string `json:"Name"`
+	Userid string `json:"userid"`
+	Name   string `json:"name"`
 }
 
 func DisplayUser(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	query := "SELECT Userid, Name FROM Users WHERE Userid=?"
+	query := "SELECT userid, name FROM users WHERE userid =$1"
 	user := resources.Query(query, body.Userid)
 	var result []Display_User
 
