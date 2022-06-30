@@ -1,0 +1,2 @@
+# Sirka
+Golang interview test
