@@ -2414,7 +2414,8 @@ Awesome project lists using [Gin](https://github.com/gin-gonic/gin) web framewor
   
   ### Run command
 
-  go get -u github.com/gin-gonic/gin
+    go get -u github.com/gin-gonic/gin
 
-  go get -u github.com/lib/pq
+    go get -u github.com/lib/pq
+    
 </details>
