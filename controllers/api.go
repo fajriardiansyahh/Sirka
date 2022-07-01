@@ -13,7 +13,7 @@ type Display_User struct {
 	Name   string `json:"name"`
 }
 
-func DisplayUser(w http.ResponseWriter, r *http.Request) any {
+func DisplayUser(w http.ResponseWriter, r *http.Request) {
 	// resources.APIHeaderJSON(w, r, 1048576)
 
 	body := Display_User{}
@@ -50,8 +50,8 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) any {
 		}
 
 		w.WriteHeader(http.StatusNotFound)
-		// w.Write(jsonResp)
-		return jsonResp
+		w.Write(jsonResp)
+		// return jsonResp
 	}
 
 	for user.Next() {
@@ -64,17 +64,17 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) any {
 		result = append(result, display_user)
 	}
 
-	// jsonResp, err := json.Marshal(result)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	panic(err)
-	// }
+	jsonResp, err := json.Marshal(result)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
 
-	// w.Write(jsonResp)
-	return result
+	w.Write(jsonResp)
+	// return result
 }
 
-func DisplayAllUsers(w http.ResponseWriter, r *http.Request) any {
+func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
 	// resources.APIHeaderJSON(w, r, 1048576)
 	query := "SELECT * FROM users"
 
@@ -97,15 +97,15 @@ func DisplayAllUsers(w http.ResponseWriter, r *http.Request) any {
 			"User-Device": hostname,
 			"Method":      r.Method,
 		}
-		// jsonResp, err := json.Marshal(response)
-		// if err != nil {
-		// 	log.Println(err)
-		// 	panic(err)
-		// }
+		jsonResp, err := json.Marshal(response)
+		if err != nil {
+			log.Println(err)
+			panic(err)
+		}
 
-		// w.WriteHeader(http.StatusNotFound)
-		// w.Write(jsonResp)
-		return response
+		w.WriteHeader(http.StatusNotFound)
+		w.Write(jsonResp)
+		// return response
 	}
 
 	for user.Next() {
@@ -118,12 +118,12 @@ func DisplayAllUsers(w http.ResponseWriter, r *http.Request) any {
 		result = append(result, display_user)
 	}
 
-	// jsonResp, err := json.Marshal(result)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	panic(err)
-	// }
+	jsonResp, err := json.Marshal(result)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
 
-	// w.Write(jsonResp)
-	return result
+	w.Write(jsonResp)
+	// return result
 }
