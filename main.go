@@ -13,10 +13,10 @@ func main() {
 		c.JSON(200, "Hello World! I'am Gin Gonic")
 	})
 	r.POST("/DisplayUser", func(c *gin.Context) {
-		c.JSON(200, controllers.DisplayUser)
+		c.JSON(200, gin.H{"data": controllers.DisplayUser})
 	})
 	r.POST("/DisplayAllUsers", func(c *gin.Context) {
-		c.JSON(200, controllers.DisplayAllUsers)
+		c.JSON(200, gin.H{"data": controllers.DisplayAllUsers})
 	})
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})

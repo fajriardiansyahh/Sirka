@@ -13,8 +13,8 @@ type Display_User struct {
 	Name   string `json:"name"`
 }
 
-func DisplayUser(w http.ResponseWriter, r *http.Request) {
-	resources.APIHeaderJSON(w, r, 1048576)
+func DisplayUser(w http.ResponseWriter, r *http.Request) any {
+	// resources.APIHeaderJSON(w, r, 1048576)
 
 	body := Display_User{}
 	err := json.NewDecoder(r.Body).Decode(&body)
@@ -23,7 +23,7 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	query := "SELECT userid, name FROM users WHERE userid =$1"
+	query := "SELECT userid, name FROM users WHERE userid = $1"
 	user := resources.Query(query, body.Userid)
 	var result []Display_User
 
@@ -50,8 +50,8 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusNotFound)
-		w.Write(jsonResp)
-		// return jsonResp
+		// w.Write(jsonResp)
+		return jsonResp
 	}
 
 	for user.Next() {
@@ -64,19 +64,19 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) {
 		result = append(result, display_user)
 	}
 
-	jsonResp, err := json.Marshal(result)
-	if err != nil {
-		log.Println(err)
-		panic(err)
-	}
+	// jsonResp, err := json.Marshal(result)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	panic(err)
+	// }
 
-	w.Write(jsonResp)
-	// return jsonResp
+	// w.Write(jsonResp)
+	return result
 }
 
-func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
-	resources.APIHeaderJSON(w, r, 1048576)
-	query := "SELECT * FROM Users"
+func DisplayAllUsers(w http.ResponseWriter, r *http.Request) any {
+	// resources.APIHeaderJSON(w, r, 1048576)
+	query := "SELECT * FROM users"
 
 	user := resources.Query(query)
 	var result []Display_User
@@ -97,15 +97,15 @@ func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
 			"User-Device": hostname,
 			"Method":      r.Method,
 		}
-		jsonResp, err := json.Marshal(response)
-		if err != nil {
-			log.Println(err)
-			panic(err)
-		}
+		// jsonResp, err := json.Marshal(response)
+		// if err != nil {
+		// 	log.Println(err)
+		// 	panic(err)
+		// }
 
-		w.WriteHeader(http.StatusNotFound)
-		w.Write(jsonResp)
-		// return jsonResp
+		// w.WriteHeader(http.StatusNotFound)
+		// w.Write(jsonResp)
+		return response
 	}
 
 	for user.Next() {
@@ -118,12 +118,12 @@ func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
 		result = append(result, display_user)
 	}
 
-	jsonResp, err := json.Marshal(result)
-	if err != nil {
-		log.Println(err)
-		panic(err)
-	}
+	// jsonResp, err := json.Marshal(result)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	panic(err)
+	// }
 
-	w.Write(jsonResp)
-	// return jsonResp
+	// w.Write(jsonResp)
+	return result
 }
