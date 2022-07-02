@@ -3,6 +3,7 @@
  <a href="https://github.com/gin-gonic/gin" target="_blank"><img src="https://raw.githubusercontent.com/gin-gonic/logo/master/color.png" width="200"></a>
 </p>
 
+<p align="center">
 [![Build Status](https://github.com/gin-gonic/gin/workflows/Run%20Tests/badge.svg?branch=master)](https://github.com/gin-gonic/gin/actions?query=branch%3Amaster)
 [![codecov](https://codecov.io/gh/gin-gonic/gin/branch/master/graph/badge.svg)](https://codecov.io/gh/gin-gonic/gin)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gin-gonic/gin)](https://goreportcard.com/report/github.com/gin-gonic/gin)
@@ -12,6 +13,9 @@
 [![Open Source Helpers](https://www.codetriage.com/gin-gonic/gin/badges/users.svg)](https://www.codetriage.com/gin-gonic/gin)
 [![Release](https://img.shields.io/github/release/gin-gonic/gin.svg?style=flat-square)](https://github.com/gin-gonic/gin/releases)
 [![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/gin-gonic/gin)](https://www.tickgit.com/browse?repo=github.com/gin-gonic/gin)
+
+
+</p>
 
 # About Go Programming Language
 
@@ -2411,17 +2415,13 @@ Awesome project lists using [Gin](https://github.com/gin-gonic/gin) web framewor
 <details>
   <summary>Click to expand!</summary>
   
-  ## Setup
+  ## Preparations
+
+  1. Download and Install <a href="https://docs.docker.com/get-docker/" target="_blank">Docker</a>
   
-  ### Run command
+  ## Run command
 
-    go get -u github.com/gin-gonic/gin
+  1. Start the containers:		docker-compose up -d
+  2. Rebuild and start:		docker-compose up -d --build
 
-  ## 
-
-    go get -u github.com/lib/pq
-
-  ## 
-
-    go mod tidy
 </details>

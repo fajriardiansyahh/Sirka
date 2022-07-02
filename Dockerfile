@@ -1,32 +1,26 @@
-# Start from golang base image
-FROM golang:alpine
+# Specify the base image for the go app.
+FROM golang:1.18
 
 # Add Maintainer info
 LABEL maintainer="Fajri Ardiansyah"
 
-# Install git.
-# Git is required for fetching the dependencies.
-RUN apk update && apk add --no-cache git && apk add --no-cach bash && apk add build-base
+# Specify that we now need to execute any commands in this directory.
+WORKDIR /go/src/github.com/postgres-go
 
-# Setup folders
-RUN mkdir /app
-WORKDIR /app
-
-# Copy the source from the current directory to the working Directory inside the container
+# Copy everything from this project into the filesystem of the container.
 COPY . .
-COPY .env .
 
-# Download all the dependencies
-RUN go get -d -v ./...
+# Obtain the package needed to run code. Alternatively use GO Modules. 
+RUN go get -u github.com/lib/pq
+RUN go get -u github.com/gin-gonic/gin
+RUN go get -u github.com/joho/godotenv
 
-# Install the package
-RUN go install -v ./...
+# Download & Install all the dependencies
+# RUN go get -d -v ./...
+# RUN go install -v ./...
 
-# Build the Go app
-RUN go build -o /build
+# Compile the binary exe for our app.
+RUN go build -o main .
 
-# Expose port 8080 to the outside world
-EXPOSE 8080
-
-# Run the executable
+# Start the application.
 CMD [ "/build" ]

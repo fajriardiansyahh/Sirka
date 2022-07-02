@@ -1,57 +1,29 @@
-version: '3.9'
+# Specify the version for docker-compose.yml
+version: "3.8"
+
+# add the serivces needed (postgres,go)
 services:
-  app:
-    container_name: sirka-go_container
+  postgres:
+    container_name: postgres
+    image: postgres:latest
     environment:
-      - DATABASE_USERNAME=${DB_USER}
-      - DATABASE_PASSWORD=${DB_PASSWORD}
-      - DATABASE_NAME=${DB_NAME}
-      - DATABASE_URL=${DB_HOST}
-      - DATABASE_PORT=${DB_PORT}
-      - TEST_POSTGRES_USER=${TEST_DB_USER}
-      - TEST_POSTGRES_PASSWORD=${TEST_DB_PASSWORD}
-      - TEST_POSTGRES_DB=${TEST_DB_NAME}
-      - TEST_DATABASE_HOST=${TEST_DB_HOST}
-      - TEST_DATABASE_PORT=${TEST_DB_PORT}
-    tty: true
-    build: .
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 6c0374FAJRI
+      # Optional: Give a name to the database, otherwise
+      # use the default value POSTGRES_USER as a database name (testcase in this case.)
+      POSTGRES_DB: testcase
     ports:
-      - 8000:8080
-    restart: on-failure
-    volumes:
-      - .:/app
+      - "5432:5432"
+    volumes: 
+      - dbdata:/var/lib/postgresql/data
+
+  go:
+    container_name: go
+    # build the Dockerfile, alternatively use an image.
+    build:
+      context: .
     depends_on:
-      - postgresdb
-    networks:
-      - learning
+      - "postgres"
 
-  postgresdb:
-    image: postgres:latest
-    container_name: postgres_container
-    environment:
-      - DATABASE_USERNAME=${DB_USER}
-      - DATABASE_PASSWORD=${DB_PASSWORD}
-      - DATABASE_NAME=${DB_NAME}
-      - DATABASE_URL=${DB_HOST}
-    ports:
-      - '1234:5432'
-    networks:
-      - learning
-
-  postgresdb_test:
-    image: postgres:latest
-    container_name: postgres_test_container
-    environment:
-      - DATABASE_USERNAME=${TEST_DB_USER}
-      - DATABASE_PASSWORD=${TEST_DB_PASSWORD}
-      - DATABASE_NAME=${TEST_DB_NAME}
-      - DATABASE_URL=${TEST_DB_HOST}
-    ports:
-      - '4568:5432'
-    networks:
-      - learning
-
-# Networks to be created to facilitate communication between containers
-networks:
-  learning:
-    driver: bridge
+volumes:
+  dbdata: # create the volume for persisting data.

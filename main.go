@@ -2,34 +2,31 @@ package main
 
 import (
 	"Sirka/controllers"
-	"log"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
-	// r := gin.Default()
-	// r.GET("/welcome", func(c *gin.Context) {
-	// 	c.JSON(200, "Hello World! I'am Gin Gonic")
-	// })
-	// r.POST("/DisplayUser", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{"data": controllers.DisplayUser})
-	// })
-	// r.POST("/DisplayAllUsers", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{"data": controllers.DisplayAllUsers})
-	// })
-	// r.NoRoute(func(c *gin.Context) {
-	// 	c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
-	// })
-	// r.Run("localhost:8080")
+	r := gin.Default()
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/DisplayUser", controllers.DisplayUser)
-	mux.HandleFunc("/DisplayAllUsers", controllers.DisplayAllUsers)
-	log.Println("Starting Web Server at port: 9090")
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
 
-	err := http.ListenAndServe(":9090", mux)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	r.GET("/welcome", func(c *gin.Context) {
+		c.JSON(200, "Hello World! I'am Gin Gonic")
+	})
+
+	r.POST("/DisplayUser", func(c *gin.Context) {
+
+		result := controllers.DisplayUser(c.Request)
+		c.JSON(200, result)
+	})
+	r.POST("/DisplayAllUsers", func(c *gin.Context) {
+		result := controllers.DisplayAllUsers(c.Request)
+		c.JSON(200, result)
+	})
+
+	r.Run("localhost:9090")
 }

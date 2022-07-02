@@ -34,15 +34,3 @@ func Query(query string, args ...any) sql.Rows {
 
 	return *result
 }
-
-func Read() {
-
-}
-
-func Update() {
-
-}
-
-func Delete() {
-
-}

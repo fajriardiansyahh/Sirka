@@ -13,8 +13,7 @@ type Display_User struct {
 	Name   string `json:"name"`
 }
 
-func DisplayUser(w http.ResponseWriter, r *http.Request) {
-	// resources.APIHeaderJSON(w, r, 1048576)
+func DisplayUser(r *http.Request) any {
 
 	body := Display_User{}
 	err := json.NewDecoder(r.Body).Decode(&body)
@@ -43,15 +42,8 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) {
 			"User-Device": hostname,
 			"Method":      r.Method,
 		}
-		jsonResp, err := json.Marshal(response)
-		if err != nil {
-			log.Println(err)
-			panic(err)
-		}
 
-		w.WriteHeader(http.StatusNotFound)
-		w.Write(jsonResp)
-		// return jsonResp
+		return response
 	}
 
 	for user.Next() {
@@ -64,18 +56,10 @@ func DisplayUser(w http.ResponseWriter, r *http.Request) {
 		result = append(result, display_user)
 	}
 
-	jsonResp, err := json.Marshal(result)
-	if err != nil {
-		log.Println(err)
-		panic(err)
-	}
-
-	w.Write(jsonResp)
-	// return result
+	return result
 }
 
-func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
-	// resources.APIHeaderJSON(w, r, 1048576)
+func DisplayAllUsers(r *http.Request) any {
 	query := "SELECT * FROM users"
 
 	user := resources.Query(query)
@@ -97,15 +81,8 @@ func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
 			"User-Device": hostname,
 			"Method":      r.Method,
 		}
-		jsonResp, err := json.Marshal(response)
-		if err != nil {
-			log.Println(err)
-			panic(err)
-		}
 
-		w.WriteHeader(http.StatusNotFound)
-		w.Write(jsonResp)
-		// return response
+		return response
 	}
 
 	for user.Next() {
@@ -118,12 +95,5 @@ func DisplayAllUsers(w http.ResponseWriter, r *http.Request) {
 		result = append(result, display_user)
 	}
 
-	jsonResp, err := json.Marshal(result)
-	if err != nil {
-		log.Println(err)
-		panic(err)
-	}
-
-	w.Write(jsonResp)
-	// return result
+	return result
 }
