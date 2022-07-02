@@ -23,4 +23,4 @@ RUN go get -u github.com/joho/godotenv
 RUN go build -o main .
 
 # Start the application.
-CMD [ "/build" ]
+CMD ["./main"]
